@@ -14,6 +14,6 @@ app.get('/ListProducto',(req,res)=>{
     res.json({Message : "Hola Bienvenido"})
 })
  
-app.listen(3000 , ()=>{
-    console.log("Server Activo 3000")
+app.listen(app.get('port') , ()=>{
+    console.log('Server on Port',app.get('port'))
 })
