@@ -2,23 +2,17 @@
 
 import { Router } from "express";
 
+//Importar los controller
+import * as categoriaController from "./categoria.controller";
+
 const router = Router();
 
-router.get('/categorias',(req,res)=>{
-    res.json('GettingCategorias')
-})
-router.post('/addcategoria',(req,res)=>{
-    res.json('Add Category ')
-})
+router.get('/categorias',categoriaController.getcategorias);
+router.post('/categorias',categoriaController.createcategorias);
+router.put('/categorias',categoriaController.updatecategorias);
+router.delete('/categorias',categoriaController.deletecategorias);
 
-router.get('/categoria/:id',(req,res)=>{
-    const idd = req.params.id
-    res.send(`categoria encontrado ${idd}`)
-})
 
-router.put('/categoria',(req,res)=>{
-  
-})
 
 
 export default router;

@@ -14,7 +14,8 @@ app.use(cors())
 
 //para recepcionar los obj json 
  app.use(express.json())
-//
+//para entender los campos cuando llegan desde el post 
+app.use(express.urlencoded({extended:false}))
 
 //Uso de las rutas
 app.use(CategoriaRoutes)
