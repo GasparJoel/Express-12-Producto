@@ -6,19 +6,19 @@ export const getcategorias:RequestHandler  =(req,res)=>{
 }
 
 export const createcategorias:RequestHandler  =(req,res)=>{
-    res.json('Getinging Categorias')
+    res.json('create Categorias')
 }
 
 export const getcategoria:RequestHandler  =(req,res)=>{
-    res.json('Getinging Categorias')
+    res.json('buscar una  Categoriaa')
 }
 
 export const deletecategorias:RequestHandler  =(req,res)=>{
-    res.json('Getinging Categorias')
+    res.json('delete Categoria')
 
 }
 
 export const updatecategorias:RequestHandler  =(req,res)=>{
-    res.json('Getinging Categorias')
+    res.json('Actualizar Categoria')
 
 }
