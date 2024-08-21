@@ -9,7 +9,7 @@ const CategoriaSchema= new Schema({
     }
 },{
     versionKey:false,
-    timestamps:true,
+    timestamps:true
 
 })
 

@@ -5,7 +5,8 @@ const ProductoSchema = new Schema({
     cod:{
         type: String,
         required:true,
-        trim:true
+        trim:true,
+        unique:true
     }, 
     name :{
         type:String,
