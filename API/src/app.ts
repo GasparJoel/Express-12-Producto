@@ -5,6 +5,7 @@ import morgan from 'morgan';
 
 //Importando rutas
 import CategoriaRoutes from './routes/categoria/categoria.routes'
+import ProductosRoutes  from './routes/Producto/productos.routes'
 
 const app = express();
 //Middleware
@@ -19,5 +20,6 @@ app.use(express.urlencoded({extended:false}))
 
 //Uso de las rutas
 app.use(CategoriaRoutes)
+app.use(ProductosRoutes)
 
 export default app;
