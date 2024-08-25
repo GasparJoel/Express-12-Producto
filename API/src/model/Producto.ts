@@ -27,7 +27,7 @@ const ProductoSchema = new Schema({
         trim:true
     } ,
     price_vent :{
-        type:true,
+        type:Number,
         required:true,
         trim:true
     },
