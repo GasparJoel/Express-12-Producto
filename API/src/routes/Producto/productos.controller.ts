@@ -13,7 +13,17 @@ export const getProductos :RequestHandler=async(req,res)=>{
 }
 
 export const getProducto : RequestHandler = async(req,res)=>{
-    res.send('obteniendo un  producto')
+
+    try {
+        const productoFound = await Producto.findById(req.params.id);
+          if(!productoFound) return res.status(204).json()
+        return res.json(productoFound)
+    } catch (error) {
+        res.json(error)
+    }
+
+    
+    
 }
 
 export const CreateProducto :RequestHandler = async(req,res)=>{
@@ -25,8 +35,22 @@ export const CreateProducto :RequestHandler = async(req,res)=>{
 }
 
 export const UpdateProducto :RequestHandler = async(req,res)=>{
-    res.send('Actualizando un  producto')
+   
+    try {
+        const productoFound = await Producto.findByIdAndUpdate(req.params.id,req.body,{new:true});
+          if(!productoFound) return res.status(204).json()
+        return res.json(productoFound)
+    } catch (error) {
+        res.json(error)
+    }
+
 }
 export const deleteProducto :RequestHandler = async(req,res)=>{
-    res.send('Eliminando un  producto')
+    try {
+        const productoFound = await Producto.findByIdAndDelete(req.params.id);
+          if(!productoFound) return res.status(204).json()
+        return res.json(productoFound)
+    } catch (error) {
+        res.json(error)
+    }
 }
