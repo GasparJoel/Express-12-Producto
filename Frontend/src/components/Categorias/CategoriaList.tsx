@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 //Creamos una interface para poder traer los datos de categoria
 import { Categoria } from "./Categoria";
 import { getCategorias } from "./CategoriasService";
-
+import {CategoriaItem} from "./CategoriaItem";
 
 
 export const CategoriaList = () => {
@@ -22,7 +22,7 @@ export const CategoriaList = () => {
   return (
 
     <>
-      <table>
+      {/* <table>
         <thead>
             <th>Cod</th>
             <th>Nombre</th>
@@ -42,13 +42,10 @@ export const CategoriaList = () => {
            
             
         </tbody>
-      </table>
+      </table> */}
         {
             categorias.map((categoria)=>(
-                <div key={categoria._id}>
-                    <h1>{categoria.nombre} </h1>
-                    <h5>{categoria.createdAt}</h5>
-                </div>
+                 <CategoriaItem categoria={categoria}/>
             ))
         }
       
