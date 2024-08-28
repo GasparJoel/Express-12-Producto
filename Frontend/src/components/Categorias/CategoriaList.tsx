@@ -45,7 +45,7 @@ export const CategoriaList = () => {
       </table> */}
         {
             categorias.map((categoria)=>(
-                 <CategoriaItem categoria={categoria}/>
+                 <CategoriaItem key={categoria._id} categoria={categoria}/>
             ))
         }
       
