@@ -14,7 +14,7 @@ export const CategoriaList = () => {
         const res  = await getCategorias()
 
         //Actualizamos las fechas en tipos de datos Date y ordenar por orden de registro
-        
+
        const formatedFechCategoria= res.data.map(categoria=>{
             return{
                 ...categoria,
@@ -36,7 +36,7 @@ export const CategoriaList = () => {
       <div className="row">
           {
               categorias.map((categoria)=>(
-                  <CategoriaItem key={categoria._id} categoria={categoria}/>
+                  <CategoriaItem key={categoria._id} categoria={categoria} loadCategorias ={LoadCategorias}/>
               ))
           }
        </div>

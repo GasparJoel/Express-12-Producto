@@ -2,3 +2,9 @@
     border: 1px solid #333;
     cursor: pointer;
 }
+
+.pulsor-delete:hover{
+    font-weight: 800;
+    color: red;
+    font-size: 20px;
+}
