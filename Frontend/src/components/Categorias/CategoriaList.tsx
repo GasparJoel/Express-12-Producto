@@ -13,7 +13,8 @@ export const CategoriaList = () => {
     const LoadCategorias =async()=>{
         const res  = await getCategorias()
 
-        //Actualizamos las fechas en tipos de datos Date 
+        //Actualizamos las fechas en tipos de datos Date y ordenar por orden de registro
+        
        const formatedFechCategoria= res.data.map(categoria=>{
             return{
                 ...categoria,

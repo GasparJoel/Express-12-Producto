@@ -1,12 +1,18 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Categoria } from "./Categoria";
 import * as categoriaService from "./CategoriasService";
 import { toast } from "react-toastify";
-//import { useNavigate } from "react-router-dom";
+import { useParams ,useNavigate } from "react-router-dom";
+
+
+//Interface para los params 
 
 export const CategoriaForm = () => {
 
-  //const navigate = useNavigate()
+  const navigate = useNavigate()
+  //Para ver los parametros que estan llegando por la url
+  const params = useParams()
+  
 
   const initialstate={
     nombre:'',
@@ -21,11 +27,33 @@ export const CategoriaForm = () => {
 
   const HandleSubmit= async(e:FormEvent<HTMLFormElement>)=>{
       e.preventDefault();
-    await categoriaService.CreateCategoria(categoria)
-     toast.success('New category create')
-     setCategoria(initialstate)
-    // navigate('/')
+
+     if (!params.id) {
+      await categoriaService.CreateCategoria(categoria)
+      toast.success('New category create')
+      setCategoria(initialstate)
+     }else{
+      await categoriaService.updateCategoria(params.id , categoria)
+      navigate('/')
+     }
+
+
+   
   }
+
+  useEffect(() => {
+
+    const getCateogoria= async (id:string)=>{
+      const res = await categoriaService.getCategoria(id);
+      const {nombre } = res.data
+      setCategoria({nombre})
+    }
+
+     if (params.id) {
+      getCateogoria(params.id)
+     }
+  }, [])
+  
 
   return (
     <div className="row">
@@ -46,7 +74,12 @@ export const CategoriaForm = () => {
                   value={categoria.nombre}
                 />
         
+               {
+                params.id? 
+                <button className="btn btn-xxl btn-info " >Update Category</button>
+                :
                 <button className="btn btn-xxl btn-primary " >Create Category</button>
+               }
 
             </form>
           </div>
