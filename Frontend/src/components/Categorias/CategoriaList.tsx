@@ -12,7 +12,18 @@ export const CategoriaList = () => {
 
     const LoadCategorias =async()=>{
         const res  = await getCategorias()
-        setcategorias(res.data)
+
+        //Actualizamos las fechas en tipos de datos Date 
+       const formatedFechCategoria= res.data.map(categoria=>{
+            return{
+                ...categoria,
+                createdAt:categoria.createdAt?new Date(categoria.createdAt):new Date(),
+                updatedAt:categoria.updatedAt?new Date(categoria.updatedAt):new Date()
+            }
+        })
+        .sort((a,b)=>b.createdAt.getTime() - a.createdAt.getTime())
+        setcategorias(formatedFechCategoria)
+
     }
 
     useEffect(() => {
@@ -21,35 +32,14 @@ export const CategoriaList = () => {
     
   return (
 
-    <>
-      {/* <table>
-        <thead>
-            <th>Cod</th>
-            <th>Nombre</th>
-            <th>Fecha</th>
-        </thead>
-        <tbody>
-            {
-                categorias.map(categorias=>(
-                    <tr key={categorias._id}>
-                        <td>{categorias._id}</td>
-                        <td> {categorias.nombre} </td>
-                        <td>{categorias.createdAt} </td>
-                    </tr>
-                ))
-            }
-           
-           
-            
-        </tbody>
-      </table> */}
-        {
-            categorias.map((categoria)=>(
-                 <CategoriaItem key={categoria._id} categoria={categoria}/>
-            ))
-        }
-      
-    </>
+      <div className="row">
+          {
+              categorias.map((categoria)=>(
+                  <CategoriaItem key={categoria._id} categoria={categoria}/>
+              ))
+          }
+       </div>
+ 
 
   )
 }

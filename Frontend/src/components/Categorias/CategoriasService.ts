@@ -4,7 +4,7 @@ import { Categoria } from "./Categoria";
 const API = 'http://localhost:5000'
 
 export const getCategorias = async()=>{
-   return  await axios.get(`${API}/categorias`)
+   return  await axios.get<Categoria[]>(`${API}/categorias`)
     
 }
 

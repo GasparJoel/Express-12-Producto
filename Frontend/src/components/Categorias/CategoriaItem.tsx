@@ -6,9 +6,14 @@ interface Props {
 }
 export const CategoriaItem = ({categoria}:Props) => {
   return (
-    <div key={categoria._id}>
-        <h1>{categoria.nombre} </h1>
-        <h5>{categoria.createdAt}</h5>
+    <div  className='col-md-4'>
+       <div className="card card-body">
+          <div className="d-flex justify-content-between">
+            <h1>{categoria.nombre} </h1>
+            <span className='text-danger'>X</span>
+          </div>
+        
+       </div>
     </div>
   )
 }

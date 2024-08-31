@@ -1,6 +1,6 @@
 export interface Categoria{
-    createdAt?: string;  
+    createdAt?: string |Date
     nombre:string
-    updatedAt?: string
+    updatedAt?: string|Date
     _id?: string
 }

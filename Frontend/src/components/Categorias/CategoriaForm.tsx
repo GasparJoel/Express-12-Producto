@@ -9,7 +9,8 @@ export const CategoriaForm = () => {
   //const navigate = useNavigate()
 
   const initialstate={
-    nombre:''
+    nombre:'',
+   
   }
 
   const [categoria, setCategoria] = useState<Categoria>(initialstate)

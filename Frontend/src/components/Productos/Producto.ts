@@ -1,7 +1,7 @@
 export interface Producto {
     categoria: string;
     cod: string;
-    createdAt: string;
+    createdAt?: string;
     descripcion: string;
     fotos: string[]; // Arreglo de URLs de las fotos
     name: string;
@@ -9,6 +9,6 @@ export interface Producto {
     price_vent: number;
     stock: number;
     unid_med: string;
-    updatedAt: string;
-    _id: string;
+    updatedAt?: string;
+    _id?: string; 
   }
