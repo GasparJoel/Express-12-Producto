@@ -42,7 +42,7 @@ export const ProductoList = () => {
 
       <div className="row">
           {Productos.map(producto=>(
-               <ProductoItem key={producto._id} producto={producto}/>
+               <ProductoItem key={producto._id} producto={producto} loadCategoria = {LoadProductos}/>
           ))}
       </div>
     

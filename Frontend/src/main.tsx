@@ -24,6 +24,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/update/:id" element={<CategoriaForm />} />
           <Route path="/Productos" element = { <ProductoList/>  }/>
           <Route path="/New-productos" element = { <ProductoForm/>  }/>
+          <Route path="/updateProducto/:id" element = { <ProductoForm/>  }/>
         </Routes> 
           <ToastContainer/>
       </div>

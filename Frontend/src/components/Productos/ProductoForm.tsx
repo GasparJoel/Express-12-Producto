@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { Categoria } from "../Categorias/Categoria";
 import { getCategorias } from "../Categorias/CategoriasService";
 import { Producto } from "./Producto";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useParams } from "react-router-dom";
 import * as Productoservice from "./ProductoService";
 
 export const ProductoForm = () => {
@@ -10,6 +10,7 @@ export const ProductoForm = () => {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
 
   const navigate = useNavigate();
+  const params = useParams();
 
   const initialStates: Producto = {
     categoria: '',
@@ -32,6 +33,43 @@ export const ProductoForm = () => {
 
   useEffect(() => {
     LoadCategoria();
+    const getProducto= async(id:string)=>{
+      const res  = await Productoservice.getProducto(id)
+      const {
+        name,
+        descripcion,
+        cod,
+        categoria,
+        unid_med,
+        stock,
+        price_comp,
+        price_vent,
+        fotos, // Añadir fotos y otros campos que faltaban
+        createdAt,
+        updatedAt,
+        _id
+    } = res.data;
+    
+    // Actualizando el estado del producto con todos los campos necesarios
+    setProducto({
+        name,
+        descripcion,
+        cod,
+        categoria,
+        unid_med,
+        stock,
+        price_comp,
+        price_vent,
+        fotos, // Campo adicional
+        createdAt, // Campo adicional
+        updatedAt, // Campo adicional
+        _id // Campo adicional
+    });
+    }
+
+    if (params.id) {
+      getProducto(params.id)
+    }
   }, []);
 
   type InputChange = ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>;
@@ -52,8 +90,16 @@ export const ProductoForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    Productoservice.CreateProductos(producto)
-    navigate('/productos')
+    if (!params.id) {
+    
+      Productoservice.CreateProductos(producto)
+      navigate('/productos')
+    }else{
+      await Productoservice.updateProducto(params.id , producto)
+      navigate('/productos')
+    }
+
+ 
   };
 
   return (
@@ -70,6 +116,7 @@ export const ProductoForm = () => {
                       className="form-control mb-3"
                       type="text"
                       name="cod"
+                      value={producto.cod}
                       placeholder="Ingrese Codigo De Barras"
                       onChange={HandleInputChange}
                       autoFocus
@@ -80,6 +127,7 @@ export const ProductoForm = () => {
                       placeholder="Nombre del producto"
                       type="text"
                       name="name"
+                      value={producto.name}
                       onChange={HandleInputChange}
                     />
                     <textarea
@@ -88,6 +136,7 @@ export const ProductoForm = () => {
                       rows={3}
                       placeholder="Descripción del producto"
                       onChange={HandleInputChange}
+                      value={producto.descripcion}
                     ></textarea>
                     <input
                       className="form-control mb-3"
@@ -96,6 +145,7 @@ export const ProductoForm = () => {
                       placeholder="Ingrese el stock actual"
                       name="stock"
                       onChange={HandleInputChange}
+                      value={producto.stock}
                     />
                     <input
                       className="form-control mb-3"
@@ -104,6 +154,7 @@ export const ProductoForm = () => {
                       placeholder="Precio de compra"
                       name="price_comp"
                       onChange={HandleInputChange}
+                      value={producto.price_comp}
                     />
                     <input
                       className="form-control mb-3"
@@ -112,11 +163,13 @@ export const ProductoForm = () => {
                       placeholder="Precio de venta"
                       name="price_vent"
                       onChange={HandleInputChange}
+                      value={producto.price_vent}
                     />
                     <select
                       className="form-control mb-3"
                       name="unid_med"
                       onChange={HandleInputChange}
+                      value={producto.unid_med}
                     >
                       <option value="">---Seleccione---</option>
                       <option value="Unidades">Unidades</option>
@@ -149,6 +202,7 @@ export const ProductoForm = () => {
                       className="form-control"
                       name="categoria"
                       onChange={HandleInputChange}
+                      value={producto.categoria}
                     >
                       <option value="">---Seleccione---</option>
                       {categorias.map((categoria) => (
@@ -161,14 +215,26 @@ export const ProductoForm = () => {
                   <div className="row">
                     
                     <div className="col-md-6 d-flex justify-content-center">
-                      <button type="reset" className="btn btn-info">
+                      <button type="reset" className="btn btn-danger">
                         Cancelar
                       </button>
                     </div>
                     <div className="col-md-6 d-flex justify-content-center">
-                      <button type="submit" className="btn btn-primary">
-                        Create Product
+
+                      {
+                        params.id ?
+                        <button type="submit" className="btn btn-info">
+                        Update Product
                       </button>
+                      :
+                      <button type="submit" className="btn btn-primary">
+                      Create 
+                    </button>
+                      }
+                      
+                     
+
+
                     </div>
                   </div>
                 </div>

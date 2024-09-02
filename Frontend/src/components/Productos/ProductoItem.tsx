@@ -1,14 +1,23 @@
 import React, { useEffect } from "react";
 import { Producto } from "./Producto";
+import { useNavigate } from "react-router-dom";
+import  * as productoService  from "./ProductoService";
 
 interface Props {
   producto: Producto;
+  loadCategoria:()=> void ;
 }
 
-export const ProductoItem = ({ producto }: Props) => {
+export const ProductoItem = ({ producto ,loadCategoria }: Props ) => {
+  const navigate = useNavigate()
+
+ const HandleDeleteProducto =async (id:string)=>{
+   await productoService.deleteProducto(id)
+  loadCategoria()
+ }
 
   useEffect(() => {
-    // Cargar imágenes si es necesario cuando el componente se monta.
+   
   }, []);
 
   return (
@@ -35,10 +44,10 @@ export const ProductoItem = ({ producto }: Props) => {
           </li>
         </ul>
         <div className="card-body">
-          <a href="#" className=" btn btn-info m-3">
+          <a href="#" className=" btn btn-info m-3" onClick={()=>navigate(`/updateProducto/${producto._id}`)}>
             Edit
           </a>
-          <a href="#" className="btn btn-danger">
+          <a href="#" className="btn btn-danger" onClick={()=>producto._id && HandleDeleteProducto(producto._id) }>
             Delete
           </a>
         </div>

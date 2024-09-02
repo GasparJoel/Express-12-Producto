@@ -1,22 +1,9 @@
 import { RequestHandler } from "express";
 import  Producto  from "../../model/Producto";
 
-import multer from "multer";
-import path from "path";
 
-// Configuración de multer para almacenar imágenes en src/assets/Producto
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, path.join(__dirname, '../../img/Productos'));
-    },
-    filename: function (req, file, cb) {
-      const ext = path.extname(file.originalname);
-      const newFilename = `${req.body.cod}-${Date.now()}${ext}`;
-      cb(null, newFilename);
-    }
-  });
   
-  const upload = multer({ storage: storage });
+
 
 export const getProductos :RequestHandler=async(req,res)=>{
 
