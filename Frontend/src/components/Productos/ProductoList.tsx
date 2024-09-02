@@ -12,8 +12,18 @@ export const ProductoList = () => {
 
   const LoadProductos =async()=>{
     const res  =await getProductos();
-    setProductos(res.data)
 
+    const formatedFecha=res.data.map(producto=>{
+      return{
+        ...producto,
+        createdAt:producto.createdAt?new Date(producto.createdAt):new Date(),
+        updatedAt:producto.updatedAt?new Date(producto.updatedAt):new Date(),
+      }
+
+    })
+    .sort((a,b)=>b.createdAt.getTime() - a.createdAt.getTime())
+    
+    setProductos(formatedFecha)
   }
    
   useEffect(() => {
